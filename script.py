@@ -12,6 +12,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 from statsmodels.stats.outliers_influence import variance_inflation_factor
+import statsmodels.api as sm
 
 path = '/home/sofiawangy/Github/Housing Project//'
 
@@ -70,19 +71,23 @@ for i in range(x_train2.shape[1]):
         vif['factor'].append(factor)
         vif['features'].append(x_train2.columns[i])
         
+features = x_train2[vif['features']]
+lm.fit(features, y_train)
+lm.score(features, y_train) #0.529
+        
 #ANOVA
 
+x = sm.add_constant(x_train2.iloc[: , :3])
+results = sm.OLS(y_train, x).fit()
+#results = model.fit()
+print(results.summary())
 
 
+#get R^2 with train test split on x_train
 
+#random forest
 
-
-
-
-
-
-
-
+#gradient boosting
 
 
 
